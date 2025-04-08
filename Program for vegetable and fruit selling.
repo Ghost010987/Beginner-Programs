@@ -1,0 +1,107 @@
+  
+# Creating a program for vegetable and fruit selling.
+
+# List of products represented in a dictionary with items names as a key and price as value.  
+products = {
+    "Vegetables": {
+        "Asparagus": 150, "Avocado": 120, "Beans": 100, "Broccoli": 80,
+        "Brussels": 140, "Cabbage": 50, "Carrot": 60, "Cauliflower": 45,
+        "Celery": 74, "Corn": 60, "Cucumber": 45, "Eggplant": 35, "Garlic": 250,
+        "Kale": 55, "Leeks": 65, "Onions": 30, "Potato": 40, "Tomatos": 32, "Ginger": 50
+    },
+    "Fruits": {
+        "Apples": 180, "Apricots": 150, "Banana": 80, "Blueberries": 140,
+        "Cherries": 160, "Clementines": 120, "Dates": 80, "Elderberries": 85,
+        "Figs": 55, "Grapes": 120, "Guava": 100, "Honeydew Melon": 110,
+        "Jackfruit": 140, "Kiwi": 60, "Mango": 180, "Oranges": 120
+    }
+}
+
+index_map = {} # This is to map every key and value to an index in the dictionary.  
+cart = {} # The cart is an open dictionary created to keep track of what customer choose to buy.
+
+def products_display():  # Function to display the product dictionary in a list of keys and values.  
+    index = 1            # To mark all the items in the list, starting from 1.
+    for category, items in products.items(): # for loop to display category of the items.
+        print(f"\n{category}:")
+        for name, price in items.items():  # Nested for loop to display the number, name of items with price per kilogram.
+            print(f"{index}. {name} - Rs.{price}","per kg")
+            index_map[index] = (category, name)
+            index += 1
+
+def customer_cart(): # The 2nd part of the program is the function to let the cutomer choose the items in the list and add quantity.  
+    while True:      # while loop for the customer input to make a choice with control flow statements that ends the process once customer inputs "0".
+        try:         # Error handling in case of unexpected customer input. So that it will avoid the program from crashing.
+            cust_choice = int(input("\nEnter the number in front of the item (select 0 to finish):  "))  # Customer to input the number associated with the item he or she want to purchase.
+            if cust_choice == 0:
+                break
+            if cust_choice not in index_map:
+                print("Invalid Choice, please select as per list!")
+                continue
+            
+            category, item = index_map[cust_choice] # This line is to unpack a tuple that is stored in the dictionary index_map at the key cust_choice, which means every value in index map is a tuple.
+            price = products[category][item] # This line is to get the price of a specific item in the product dictionary according to its category and name. 
+
+            quantity_str = input(f"Enter the quantity of {item} (eg., 1.5kg or 500g): ").strip().lower() # Customer to input the quantity of the item he or she want to purchase. 
+            # Control flow statements to get the exact quantity entered by customer. 
+            if quantity_str.endswith("kg"):
+                quantity = float(quantity_str.replace("kg", "").strip())
+            elif quantity_str.endswith("g"):
+                quantity = float(quantity_str.replace("g", "").strip()) / 1000
+            else:
+                print("Invalid input! Please specify quantity in 'kg' or 'g'.")
+                continue
+            
+            total_price = quantity * price   # Calculating total price.
+            # Control flow statement to let the total price be calculated based on the quantity selected by customer.
+            if item in cart:
+                cart[item]["quantity"] += quantity
+                cart[item]["total_price"] += total_price
+            else:
+                cart[item] = {"quantity": quantity, "total_price": total_price}
+            
+            print(f"Added {quantity} kg of {item} in your cart. Current total: Rs. {cart[item]['total_price']:.2f}")
+        
+        except ValueError: # Error handling exception!
+            print("Invalid input! Please enter a valid item number or quantity.")
+
+def customer_bill(): # Function to display the customers purchased items with a bill and the final step of the program. 
+    print(f"\nYOUR BILL.")
+    grand_total = 0
+    for item, details in cart.items(): # A for loop that will output the items with its details like the quantity and price.
+        print(f"- {item}: {details['quantity']:.2f} kg, Total Rs. {details['total_price']:.2f}")
+        grand_total += details["total_price"]
+
+    print(f"\nGrand Total: Rs.{grand_total:.2f}") # Output the grand total that customer has to pay after ending their purchase. 
+
+if __name__ == "__main__": # A way to call the above functions with a well defined starting point for it to work properly. 
+    products_display()
+    customer_cart()
+    customer_bill()
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
