@@ -1,0 +1,70 @@
+""" The program is a sample to refer to in case of writing a program for a resturant or food ordering app."""
+""" One can order multiple meals using this program and add more features"""
+
+# Meal Order
+
+def meal_order():
+    lunch = ("Caesar salad", "Spicy chicken wrap", "Butternut squash soup")
+    dinner = ("Baked salmon", "Turkey burger", "Mushroom risotto")
+
+# Display lunch menu.
+    print(f"\n Lunch Menu:")
+    for i, item in enumerate(lunch, start=1): # enumerate func used to index items starting from 1.
+        print(f"{i}. {item}") # The output will display the {i} as index number with item next to it.
+
+# Get lunch choice.
+    lunch_input = input("\nChoose one or more lunch items (comma-seperated numbers, or 0 to skip): ")
+    selected_lunch =[] # The selected lunch items will be converted into a list.
+    # Control flow with first statement if lunch input is not zero than follow along:
+    if lunch_input.strip() != "0":
+        try: # Exception handling incase of any incorrect inputs.
+            lunch_indexes  = [int(num.strip()) for num in lunch_input.split(",")]
+            """ The above line with variable lunch_indexes is there to convert user input into a clean list
+             of integers, removing any extra spaces."""
+            for idx in lunch_indexes:
+                if 1 <= idx <= len(lunch): 
+                    selected_lunch.append(lunch[idx - 1])
+                else:
+                    print(f"Ignore invalid lunch choice: {idx}")
+        
+        except ValueError:
+            print("Invalid lunch input. No lunch selected.")
+        
+# Display dinner menu
+    print(f"\n Dinner Menu:")
+    for i, item in enumerate(dinner, start=1):
+        print(f"{i}. {item}")
+
+# Get dinner choice.
+    dinner_input = input("\nChoose one or more dinner items (Comma-seperated numbers, or 0 to skip):  ")
+    selected_dinner =[]
+
+    if dinner_input.strip() != "0":
+        try:
+            dinner_indexes = [int(num.strip()) for num in dinner_input.split(",")]
+            for idx in dinner_indexes:
+                if 1 <= idx <= len(dinner):
+                    selected_dinner.append(dinner [idx - 1])
+                else:
+                    print(f"Ignore invalid lunch choice: {idx}")
+
+        except ValueError:
+                print("Invalid dinner input. No dinner selected.")
+    
+
+# Final output.
+    print("\n*****Your Meal Order*****")
+
+    print(f"- Lunch: ", end="")
+    if selected_lunch:
+        print(", ".join(selected_lunch))
+    else:
+        print("- No lunch selected!")
+
+    print(f"- Dinner: ", end="")
+    if selected_dinner:
+        print(", ".join(selected_dinner))
+    else:
+        print("No dinner selected!")
+
+meal_order()
