@@ -1,0 +1,53 @@
+# Basic Todo list
+
+todo_list = []
+
+def add_task():
+    task = input("Enter the task that needs to be completed: ")
+    todo_list.append(task) # Add the task to todo list.
+    print(f"A new task '{task}' added to the list.")
+
+def view_task():
+    if not todo_list:
+        print("No task available!")
+    else:
+        print("\nYour to do list.")
+# For loop to format the list of task's and to view it.
+    for idx , task in enumerate(todo_list, start=1):
+        print(f"{idx}. {task}")
+
+def remove_task():
+    view_task() # To view task before we delete them.
+    try: 
+        task_num = int(input("Enter the task number: "))
+        if 1 <= task_num <= len(todo_list):
+            removed = todo_list.pop(task_num - 1)
+            print(f"{removed} task from the todo list.")
+        else:
+            print("Invalid task number!")
+    except ValueError:
+        print("Please enter a valid task number!")
+
+def menu(): # Its the main menu for the todo list.
+    while True:
+        print("Todo list Menu:")
+        print("1. Add task.")
+        print("2. View task.")
+        print("3. Remove task.")
+        print("4. Exist.")
+
+        choice = input("Choose number from the menu:  ")
+        if choice == "1":
+            add_task()
+        elif choice == "2":
+            view_task()
+        elif choice == "3":
+            remove_task()
+        elif choice == "4":
+            print("Have a nice day!")
+            break
+        else:
+            print("Invalid choice, please choose from 1 to 4 in the menu!")
+
+if __name__ == "__main__":
+    menu()
