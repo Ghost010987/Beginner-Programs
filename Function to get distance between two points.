@@ -1,0 +1,13 @@
+import math
+
+def distance(p1=None, p2=None):
+    p1 = tuple(map(int, input("Enter coordinates comma separated for p1: ").split(',')))
+    p2 = tuple(map(int, input("Enter coordinates comma separated for p2: ").split(',')))
+    if all(coord <= 0 for coord in p1) and all(coord <= 0 for coord in p2):
+        print("Both points have all coordinates less than or equal to 0.")
+    else:
+        print("At least one coordinate is greater than 0.")
+    dist = math.sqrt((sum((a - b) ** 2 for a, b in zip(p1, p2))))
+    return dist
+
+print(f" The distance between p1 and p2: ", {round(distance(), 2)})
