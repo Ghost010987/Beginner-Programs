@@ -1,0 +1,27 @@
+# Function to remove the duplicate values from a list
+
+def remove_duplicates(original_lst):
+    new_lst = []
+    for items in original_lst:
+        if items not in new_lst:
+            new_lst.append(items)
+    return new_lst
+
+# Creating a list of both string and integer data.
+
+def list_data():
+    user_input = input("Enter the Data: ").split()
+    result = []
+
+    for item in user_input:
+        item = item.strip()
+        try:
+            item = int(item)
+        except ValueError:
+            pass
+        result.append(item)
+    
+    return result
+             
+if __name__ == '__main__':
+    print(remove_duplicates(list_data()))
