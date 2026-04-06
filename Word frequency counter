@@ -1,0 +1,27 @@
+# Function to count the word frequency.
+
+import string
+
+def count_word_frequency(text):
+    count = {}    # Count is dictionary contains words and numbers as key and values
+
+    text = text.lower() # Convert all text to lowercase.
+
+    # Remove all punctuation from the entire text and replacing it with space.
+    translator = str.maketrans(string.punctuation, " " * len(string.punctuation))
+    text = text.translate(translator)
+
+    # loop in the text for words.
+    for word in text.split():
+        if word in count:
+            count[word] += 1 # increases count for that specific word
+        else:
+            count[word] = 1  # initializes the word if it’s not already there
+
+    return count
+
+user_input = input("Write or paste your text: ")
+result = count_word_frequency(user_input)
+
+for word, freq in result.items():
+    print(f"{word}: {freq}")
